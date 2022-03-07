@@ -9,17 +9,28 @@ class UserController extends Controller
     //
     function login(Request $req)
     {
-        $user= User::where(['email'=>$req->email])->first();
+    //     $req->session()->get('user');
+    // if(session()->has('user'))
+    //    {
+    //      include('notlogin.login');
+    //  }
+    // else
+    // {
+    //      include('index');
+    //  }
+    $user= User::where(['email'=>$req->email])->first();
         //return $user;
-      //dd($user);
-        if($user || Hash::check($req->password,$user))
+        //dd($user);
+
+
+        if(!$user || !Hash::check($req->password,$user->password))
         {
             return "username or password is not matched";
         }
         else
         {
             $req->session()->put('user',$user);
-            return redirect('/login');
+            return redirect('/index');
         }
     }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
-
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +20,24 @@ Route::get('/', function () {
     return view('login');
 });
 
+Route::get('logout', function () {
+    return view ('login');
+});
+
+
+// Route::post('logout', function () {
+//     Session::forget('user');
+//     return redirect('login');
+// });
+
 Route::post("/login",[UserController::class,'login']);
-Route::get("/login",[ProductController::class,'index']);
+Route::get("/index",[ProductController::class,'index']);
+Route::get("detail{id}",[ProductController::class,'detail']);
+Route::get("search",[ProductController::class,'search']);
+Route::post("add_to_cart",[ProductController::class,'addTocart']);
+Route::get("cartlist",[ProductController::class,'cartlist']);
+
+
+
+
 
